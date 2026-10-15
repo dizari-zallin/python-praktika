@@ -1,0 +1,16 @@
+[
+  {
+    "number": "G-21",
+    "sender": "Озон",
+    "recipient": "Петрова",
+    "mass": 8.0,
+    "status": "в пути"
+  },
+  {
+    "number": "G-22",
+    "sender": "М.Видео",
+    "recipient": "Сидоров",
+    "mass": 30.0,
+    "status": "принят"
+  }
+]

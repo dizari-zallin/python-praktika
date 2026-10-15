@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <title>Task Manager</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header>
+    <h1>Task Manager</h1>
+    <p>Проекты, задачи и исполнители</p>
+  </header>
+  <main>
+    <section>
+      <h2>Задачи</h2>
+      <table>
+        <tr><th>ID</th><th>Задача</th><th>Проект</th><th>Исполнитель</th><th>Приоритет</th><th>Статус</th></tr>
+        {% for task in tasks %}
+        <tr>
+          <td>{{ task.id }}</td>
+          <td>{{ task.title }}</td>
+          <td>{{ task.project }}</td>
+          <td>{{ task.assignee }}</td>
+          <td>{{ task.priority }}</td>
+          <td>
+            <form method="post" action="{{ url_for('change_status', task_id=task.id) }}">
+              <select name="status">
+                {% for status in ['новая', 'в работе', 'готово'] %}
+                <option {% if task.status == status %}selected{% endif %}>{{ status }}</option>
+                {% endfor %}
+              </select>
+              <button type="submit">Сохранить</button>
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </table>
+    </section>
+    <section class="forms">
+      <form method="post" action="{{ url_for('add_task') }}">
+        <h2>Новая задача</h2>
+        <input name="title" placeholder="Название" required>
+        <select name="project_id">
+          {% for project in projects %}<option value="{{ project.id }}">{{ project.title }}</option>{% endfor %}
+        </select>
+        <select name="assignee_id">
+          {% for user in users %}<option value="{{ user.id }}">{{ user.name }}</option>{% endfor %}
+        </select>
+        <select name="priority">
+          <option>низкий</option><option selected>средний</option><option>высокий</option>
+        </select>
+        <button type="submit">Добавить задачу</button>
+      </form>
+      <form method="post" action="{{ url_for('add_project') }}">
+        <h2>Новый проект</h2>
+        <input name="title" placeholder="Название проекта" required>
+        <select name="owner_id">
+          {% for user in users %}<option value="{{ user.id }}">{{ user.name }}</option>{% endfor %}
+        </select>
+        <button type="submit">Добавить проект</button>
+      </form>
+    </section>
+  </main>
+</body>
+</html>

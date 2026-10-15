@@ -1,0 +1,11 @@
+body { font-family: "Segoe UI", sans-serif; margin: 0; background: #f4f6f8; color: #1d2430; }
+header { background: #16324f; color: white; padding: 20px 32px; }
+header h1 { margin: 0 0 6px; }
+main { padding: 24px 32px; }
+table { width: 100%; border-collapse: collapse; background: white; }
+th, td { border-bottom: 1px solid #e3e8ee; text-align: left; padding: 10px; }
+th { background: #eef3f8; }
+.forms { display: flex; gap: 24px; margin-top: 24px; }
+form { background: white; padding: 16px; min-width: 280px; display: flex; flex-direction: column; gap: 8px; }
+input, select, button { padding: 8px; font: inherit; }
+button { background: #16324f; color: white; border: 0; cursor: pointer; }

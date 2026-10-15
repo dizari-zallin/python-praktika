@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <title>Интернет-провайдер</title>
+  <style>
+    body { font-family: Segoe UI, sans-serif; margin: 32px; background: #f6f8fb; color: #1c2430; }
+    a { color: #0b4f8a; }
+    table { border-collapse: collapse; background: white; width: 100%; }
+    th, td { border-bottom: 1px solid #e5ebf2; padding: 8px 10px; text-align: left; }
+    h1 { margin-bottom: 4px; }
+  </style>
+</head>
+<body>
+  <h1>Интернет-провайдер</h1>
+  <p>Абоненты, тарифы, услуги, подключения и платежи.</p>
+  <h2>Абоненты</h2>
+  <table>
+    <tr><th>Имя</th><th>Телефон</th><th>Баланс</th></tr>
+    {% for client in clients %}
+    <tr>
+      <td><a href="{% url 'client' client.id %}">{{ client.name }}</a></td>
+      <td>{{ client.phone }}</td>
+      <td>{{ client.balance }} руб.</td>
+    </tr>
+    {% endfor %}
+  </table>
+  <h2>Тарифы</h2>
+  <ul>
+    {% for tariff in tariffs %}
+    <li>{{ tariff.name }} — {{ tariff.speed }} Мбит/с, {{ tariff.price }} руб.</li>
+    {% endfor %}
+  </ul>
+</body>
+</html>

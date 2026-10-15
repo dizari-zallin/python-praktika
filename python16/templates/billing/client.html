@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <title>{{ client.name }}</title>
+  <style>
+    body { font-family: Segoe UI, sans-serif; margin: 32px; background: #f6f8fb; }
+    table { border-collapse: collapse; background: white; width: 100%; margin-bottom: 16px; }
+    th, td { border-bottom: 1px solid #e5ebf2; padding: 8px; text-align: left; }
+    form { background: white; padding: 12px; margin: 12px 0; }
+    a { color: #0b4f8a; }
+  </style>
+</head>
+<body>
+  <p><a href="{% url 'index' %}">К списку</a></p>
+  <h1>{{ client.name }}</h1>
+  <p>Телефон {{ client.phone }}, баланс {{ client.balance }} руб.</p>
+  <h2>Подключения</h2>
+  <table>
+    <tr><th>Тариф</th><th>Услуги</th><th>Статус</th><th>К оплате</th></tr>
+    {% for connection in connections %}
+    <tr>
+      <td>{{ connection.tariff.name }}</td>
+      <td>{% for service in connection.services.all %}{{ service.name }} {% empty %}нет{% endfor %}</td>
+      <td>{{ connection.get_status_display }}</td>
+      <td>{{ connection.monthly_total }} руб.</td>
+    </tr>
+    {% empty %}
+    <tr><td colspan="4">Подключений нет</td></tr>
+    {% endfor %}
+  </table>
+  <form method="post">
+    {% csrf_token %}
+    <input type="hidden" name="action" value="connect">
+    <h3>Подключить тариф</h3>
+    <select name="tariff_id">{% for tariff in tariffs %}<option value="{{ tariff.id }}">{{ tariff.name }}</option>{% endfor %}</select>
+    {% for service in services %}
+    <label><input type="checkbox" name="services" value="{{ service.id }}"> {{ service.name }}</label>
+    {% endfor %}
+    <button>Подключить</button>
+  </form>
+  <h2>Платежи</h2>
+  <table>
+    <tr><th>Сумма</th><th>Комментарий</th></tr>
+    {% for payment in payments %}
+    <tr><td>{{ payment.amount }}</td><td>{{ payment.comment }}</td></tr>
+    {% empty %}<tr><td colspan="2">Платежей нет</td></tr>{% endfor %}
+  </table>
+  <form method="post">
+    {% csrf_token %}
+    <input type="hidden" name="action" value="pay">
+    <input name="amount" placeholder="Сумма" required>
+    <input name="comment" placeholder="Комментарий">
+    <button>Принять платёж</button>
+  </form>
+</body>
+</html>

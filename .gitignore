@@ -1,0 +1,5 @@
+__pycache__/
+*.py[cod]
+*.pyo
+_metodichka_extract.txt
+_filelist.txt

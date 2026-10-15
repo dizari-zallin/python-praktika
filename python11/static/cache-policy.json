@@ -1,0 +1,6 @@
+{
+  "resource": "/static/tariffs/home100.v1.svg",
+  "why_cdn": "картинка тарифа одинакова для всех абонентов и редко меняется",
+  "cache_control": "public, max-age=86400",
+  "versioning": "новое изображение публикуется как home100.v2.svg, старый URL не инвалидируют вручную"
+}
